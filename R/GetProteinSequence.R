@@ -10,9 +10,9 @@
 #' SequenceAnalysis.GetProteinSequence("O15131")
 SequenceAnalysis.GetProteinSequence = function(UniprotKB)
 {
-  doc.text=NULL
-  url = paste("http://www.uniprot.org/uniprot/",UniprotKB,sep = "")
-  doc.html = tryCatch({htmlTreeParse(url, useInternalNodes = TRUE)},error=function(err){return (NULL)},warning=function(warn){})
+  doc.text="N/A"
+  url = paste(Protein_Address,UniprotKB,sep = "")
+  doc.html = tryCatch({htmlTreeParse(url, useInternalNodes = TRUE)},error=function(err){return (NULL)})
   if (!is.null(doc.html))
   {
     doc.text = unlist(xpathApply(doc.html, '//pre', xmlValue))
@@ -20,7 +20,11 @@ SequenceAnalysis.GetProteinSequence = function(UniprotKB)
     {
       doc.text = gsub("[0-9]","",doc.text)
       doc.text = gsub(" ","",doc.text)
-      return(doc.text[1])
+      Protein=doc.text[1]
+      if (is.null(Protein))
+        Protein="N/A"
+      names(Protein)="Protein"
+      return(Protein)
     }
   }
 }

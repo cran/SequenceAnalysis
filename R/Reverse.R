@@ -24,21 +24,24 @@ SequenceAnalysis.Reverse = function(Nucleotide_Sequence=NULL,UniprotKB=NULL,CDS=
       Nucleotide_Sequence=SequenceAnalysis.GetNucleotideSequence(UniprotKB)
       if (CDS)
       {
-        Nucleotide_Sequence=Nucleotide_Sequence[[3]]
-        if (Nucleotide_Sequence=="")
-          Nucleotide_Sequence=Nucleotide_Sequence[[4]]
+        Nucleotide_Sequence=Nucleotide_Sequence[[2]]
+        if (Nucleotide_Sequence=="N/A")
+          Nucleotide_Sequence=Nucleotide_Sequence[[3]]
       }else
       {
-        Nucleotide_Sequence=Nucleotide_Sequence[[4]]
+        Nucleotide_Sequence=Nucleotide_Sequence[[3]]
       }
     }
   }
-  if (!is.null(Nucleotide_Sequence))
+  if (Nucleotide_Sequence!="N/A")
   {
     Nucleotide_Sequence=toupper(Nucleotide_Sequence)
     Nucleotide_Sequence=unlist(strsplit(Nucleotide_Sequence,""))
     Reverse=Nucleotide_Sequence[length(Nucleotide_Sequence):1]
     Reverse=paste(Reverse,collapse = "")
   }
+  if (is.null(Reverse))
+    Reverse="N/A"
+  names(Reverse)="Reverse"
   return(Reverse)
 }

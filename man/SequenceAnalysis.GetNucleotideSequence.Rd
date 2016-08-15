@@ -10,7 +10,7 @@ SequenceAnalysis.GetNucleotideSequence(UniprotKB)
 \item{UniprotKB}{UniProt ID of a sequence}
 }
 \value{
-List The first element specify UniprotKB, The second element specify CDS place e.g. 64:1250, the third element specify nucleotide sequence of coding region and the fourth element return whole nucleotide sequence.
+List The first element specify UniprotKB, The second element specify nucleotide sequence of coding region and the third element return whole nucleotide sequence.
 }
 \description{
 Get Nucleotide Sequence

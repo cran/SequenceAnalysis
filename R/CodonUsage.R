@@ -20,19 +20,14 @@ SequenceAnalysis.CodonUsage = function(Nucleotide_Sequence=NULL,UniprotKB=NULL)
     }else
     {
       Nucleotide_Sequence=SequenceAnalysis.GetNucleotideSequence(UniprotKB)
-      Nucleotide_Sequence=Nucleotide_Sequence[[4]]
+      Nucleotide_Sequence=Nucleotide_Sequence[[2]]
     }
   }
-  if (!is.null(Nucleotide_Sequence))
+  if (Nucleotide_Sequence!="N/A")
   {
     Nucleotide_Sequence=toupper(Nucleotide_Sequence)
     Codon=sapply(0:((nchar(Nucleotide_Sequence)/3)-1), function(x) substr(Nucleotide_Sequence,(x*3)+1,(x*3)+3))
     Codon_Table=table(Codon)
-    codon_List=c("A,GCT,GCC,GCA,GCG","R,CGT,CGC,CGA,CGG,AGA,AGG","N,AAT,AAC",
-                 "D,GAT,GAC","C,TGT,TGC","Q,CAA,CAG","E,GAA,GAG","G,GGT,GGC,GGA,GGG",
-                 "H,CAT,CAC","I,ATT,ATC,ATA","L,TTA,TTG,CTT,CTC,CTA,CTG","K,AAA,AAG",
-                 "M,ATG","F,TTT,TTC","P,CCT,CCC,CCA,CCG","S,TCT,TCC,TCA,TCG,AGT,AGC",
-                 "T,ACT,ACC,ACA,ACG","W,TGG","Y,TAT,TAC","V,GTT,GTC,GTA,GTG","STOP,TAA,TGA,TAG")
     codon_List=strsplit(codon_List,",")
     CodonUsage_List=sapply(codon_List, function(x) sapply(x[-1], function(y) ifelse(is.na(Codon_Table[y]),0,Codon_Table[y])))
     for (i in 1:21)

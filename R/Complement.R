@@ -13,7 +13,7 @@
 #' SequenceAnalysis.Complement(UniprotKB="O15131",CDS=TRUE)
 SequenceAnalysis.Complement = function(Nucleotide_Sequence=NULL,UniprotKB=NULL,CDS=FALSE)
 {
-  complement=NULL
+  Complement=NULL
   if (is.null(Nucleotide_Sequence))
   {
     if (is.null(UniprotKB))
@@ -24,16 +24,16 @@ SequenceAnalysis.Complement = function(Nucleotide_Sequence=NULL,UniprotKB=NULL,C
       Nucleotide_Sequence=SequenceAnalysis.GetNucleotideSequence(UniprotKB)
       if (CDS)
       {
-        Nucleotide_Sequence=Nucleotide_Sequence[[3]]
-        if (Nucleotide_Sequence=="")
-          Nucleotide_Sequence=Nucleotide_Sequence[[4]]
+        Nucleotide_Sequence=Nucleotide_Sequence[[2]]
+        if (Nucleotide_Sequence=="N/A")
+          Nucleotide_Sequence=Nucleotide_Sequence[[3]]
       }else
       {
-        Nucleotide_Sequence=Nucleotide_Sequence[[4]]
+        Nucleotide_Sequence=Nucleotide_Sequence[[3]]
       }
     }
   }
-  if (!is.null(Nucleotide_Sequence))
+  if (Nucleotide_Sequence!="N/A")
   {
     Nucleotide_Sequence=toupper(Nucleotide_Sequence)
     Nucleotide_Sequence=unlist(strsplit(Nucleotide_Sequence,""))
@@ -47,5 +47,8 @@ SequenceAnalysis.Complement = function(Nucleotide_Sequence=NULL,UniprotKB=NULL,C
     Nucleotide_Sequence[g]="C"
     Complement=paste(Nucleotide_Sequence,collapse = "")
   }
+  if (is.null(Complement))
+    Complement="N/A"
+  names(Complement)="Complement"
   return(Complement)
 }

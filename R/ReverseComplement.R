@@ -24,16 +24,16 @@ SequenceAnalysis.ReverseComplement = function(Nucleotide_Sequence=NULL,UniprotKB
       Nucleotide_Sequence=SequenceAnalysis.GetNucleotideSequence(UniprotKB)
       if (CDS)
       {
-        Nucleotide_Sequence=Nucleotide_Sequence[[3]]
-        if (Nucleotide_Sequence=="")
-          Nucleotide_Sequence=Nucleotide_Sequence[[4]]
+        Nucleotide_Sequence=Nucleotide_Sequence[[2]]
+        if (Nucleotide_Sequence=="N/A")
+          Nucleotide_Sequence=Nucleotide_Sequence[[3]]
       }else
       {
-        Nucleotide_Sequence=Nucleotide_Sequence[[4]]
+        Nucleotide_Sequence=Nucleotide_Sequence[[3]]
       }
     }
   }
-  if (!is.null(Nucleotide_Sequence))
+  if (Nucleotide_Sequence!="N/A")
   {
     Nucleotide_Sequence=toupper(Nucleotide_Sequence)
     Nucleotide_Sequence=unlist(strsplit(Nucleotide_Sequence,""))
@@ -48,5 +48,8 @@ SequenceAnalysis.ReverseComplement = function(Nucleotide_Sequence=NULL,UniprotKB
     Nucleotide_Sequence[g]="C"
     ReverseComplement=paste(Nucleotide_Sequence,collapse = "")
   }
+  if (is.null(ReverseComplement))
+    ReverseComplement="N/A"
+  names(ReverseComplement)="ReverseComplement"
   return(ReverseComplement)
 }

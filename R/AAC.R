@@ -16,6 +16,8 @@ SequenceAnalysis.AAC=function(Protein_Sequence,Sequence=TRUE,Groups=1)
   if (!Sequence)
   {
     Protein_Sequence=SequenceAnalysis.GetProteinSequence(Protein_Sequence)
+    if (Protein_Sequence=="N/A")
+      stop("Protein Sequence is not available")
   }
   if (length(Protein_Sequence)>0)
   {
@@ -83,6 +85,6 @@ SequenceAnalysis.AAC=function(Protein_Sequence,Sequence=TRUE,Groups=1)
     return(AAC)
   }else
   {
-    print("There is n't any sequence")
+    stop("There is n't any sequence")
   }
 }

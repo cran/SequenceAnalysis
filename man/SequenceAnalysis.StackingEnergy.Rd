@@ -5,7 +5,7 @@
 \title{SequenceAnalysis.StackingEnergy}
 \usage{
 SequenceAnalysis.StackingEnergy(Nucleotide_Sequence = NULL,
-  UniprotKB = NULL, CDS = FALSE)
+  UniprotKB = NULL, CDS = TRUE)
 }
 \arguments{
 \item{Nucleotide_Sequence}{Nucleotide Sequence}
@@ -26,7 +26,7 @@ The NN model for nucleic acids assumes that the stability of a given base pair d
 \examples{
 SequenceAnalysis.StackingEnergy("actagtcacgatcag")
 SequenceAnalysis.StackingEnergy(UniprotKB="O15131")
-SequenceAnalysis.StackingEnergy(UniprotKB="O15131",CDS=TRUE)
+SequenceAnalysis.StackingEnergy(UniprotKB="O15131",CDS=FALSE)
 }
 \author{
 Babak Khorsand

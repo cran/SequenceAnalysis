@@ -13,6 +13,7 @@
 #' SequenceAnalysis.GC(UniprotKB="O15131",CDS=TRUE)
 SequenceAnalysis.GC = function(Nucleotide_Sequence=NULL,UniprotKB=NULL,CDS=FALSE)
 {
+  GC=NULL
   if (is.null(Nucleotide_Sequence))
   {
     if (is.null(UniprotKB))
@@ -23,20 +24,22 @@ SequenceAnalysis.GC = function(Nucleotide_Sequence=NULL,UniprotKB=NULL,CDS=FALSE
       Nucleotide_Sequence=SequenceAnalysis.GetNucleotideSequence(UniprotKB)
       if (CDS)
       {
-        Nucleotide_Sequence=Nucleotide_Sequence[[3]]
-        if (Nucleotide_Sequence=="")
-          Nucleotide_Sequence=Nucleotide_Sequence[[4]]
+        Nucleotide_Sequence=Nucleotide_Sequence[[2]]
+        if (Nucleotide_Sequence=="N/A")
+          Nucleotide_Sequence=Nucleotide_Sequence[[3]]
       }else
       {
-        Nucleotide_Sequence=Nucleotide_Sequence[[4]]
+        Nucleotide_Sequence=Nucleotide_Sequence[[3]]
       }
     }
   }
-  if (!is.null(Nucleotide_Sequence))
+  if (Nucleotide_Sequence!="N/A")
   {
     Nucleotide_Sequence=tolower(Nucleotide_Sequence)
     GC=round((table(strsplit(Nucleotide_Sequence,""))["g"]+table(strsplit(Nucleotide_Sequence,""))["c"])/nchar(Nucleotide_Sequence),3)
-    names(GC)="GC"
   }
+  if (is.null(GC))
+    GC="N/A"
+  names(GC)="GC"
   return(GC)
 }
